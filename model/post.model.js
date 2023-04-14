@@ -10,6 +10,7 @@ const PostModel = mongoose.Schema({
   likedBy: { type: Array, default: [] },
   createdAt: { type: Date, default: Date.now },
   avatar: { type: String, default: "" },
+  postName: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("posts", PostModel);
