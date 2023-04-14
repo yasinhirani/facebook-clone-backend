@@ -314,4 +314,21 @@ app.put("/api/follow", validateToken, async (req, res) => {
   }
 });
 
+app.post("/api/deletePost", validateToken, async (req, res) => {
+  if (req.user.userId === req.body.userId) {
+    try {
+      const deletePost = await postModel.deleteOne({ postId: req.body.postId });
+      if (deletePost.acknowledged) {
+        res.send({ success: true, message: "Deleted" });
+      } else {
+        res.send({ success: false, message: "Something went wrong..." });
+      }
+    } catch (err) {
+      res.send({ success: false, message: err });
+    }
+  } else {
+    res.send({ success: false, message: "You can delete only your post" });
+  }
+});
+
 app.listen(port);
